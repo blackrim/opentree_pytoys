@@ -11,7 +11,7 @@ If you are trying to calculate things on a subset of the OpenTree synth tree, he
   - the [peyotl](https://opentreeoflife.github.io/peyotl/installation/) set of tools 
   - the OpenTree [APIs](https://github.com/OpenTreeOfLife/germinator/wiki/Open-Tree-of-Life-Web-APIs)
 
-- to make the scripts run better, I recommend pruning it down to just what you use (so, plants for example)
+- to make the scripts run better, I recommend pruning it down to just what you use (so, plants for example). You don't have to do this if you use the `phyx` program `pxtrt` to trace the tree because it can read larger trees.
   - `pxmrcacut -m cut_mrca_plants -t opentree9.1_tree/labelled_supertree/labelled_supertree.tre > vas_opentree_9.1.tre`
   - there are included `cut_mrca` files for different groups in this repo
   - `pxmrcacut` is a program in the `phyx` package
