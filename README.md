@@ -2,12 +2,12 @@
 
 
 ## Pruning OpenTree synth tree
-If you are trying to calculate things on a subset of the OpenTree synth tree, here are some steps to get that done. These require some of the [phyx](https://github.com/FePhyFoFum/phyx) tools and python scripts that are presented here but that should be it.
+If you are trying to calculate things on a subset of the OpenTree synth tree, here are some steps to get that done. These require some of the [phyx](https://github.com/FePhyFoFum/phyx) tools and python scripts that are presented here but that should be it. The `get_ottids_for_taxa.py` script needs the `request` python module that can be found [here](http://docs.python-requests.org/en/master/).
 
 - get the latest synth tree from [here](https://tree.opentreeoflife.org/about/synthesis-release)
 
 - get OTT ids for your taxa using either
-  - the scripts in this repo `python get_ottids_for_taxa.py file.ids > file.ids.ottids`
+  - the scripts in this repo `python get_ottids_for_taxa.py file.ids > file.ids.ottids`. The `file.ids` file should have a `Genus species` on each line.
   - the [peyotl](https://opentreeoflife.github.io/peyotl/installation/) set of tools 
   - the OpenTree [APIs](https://github.com/OpenTreeOfLife/germinator/wiki/Open-Tree-of-Life-Web-APIs)
 
