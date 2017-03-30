@@ -43,13 +43,15 @@ if __name__ == "__main__":
     for i in fn:
         i = i.strip()
         nm = i
+        if "ott" in nm:
+            nm = nm.replace("ott","")
         id = None
         if ncbi == True:
             id = get_ncbi_id(nm)
         else:
             id = get_gbif_id(nm)
         if id != None:
-            print nm,id
+            print nm+"\t"+id
         else:
             of.write(nm+"\n")
     fn.close()

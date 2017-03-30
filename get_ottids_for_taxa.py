@@ -29,7 +29,7 @@ if __name__ == "__main__":
             nm = " ".join(i.split(" ")[0].split("_"))
         id = get_id(nm)
         if id != None:
-            print nm,id
+            print nm+"\t"+id
         else:
             of.write(nm+"\n")
     fn.close()

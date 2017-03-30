@@ -18,4 +18,4 @@ If you are trying to calculate things on a subset of the OpenTree synth tree, he
             
 - get the list of taxa 
   - `python trace_tree.py vas_opentree_9.1.tre file.ids.ottids  > vas_nms.tre`
-  - if there is enough interest, I will make this a java program for speed and portability
+  - or you can use `pxtrt` from `phyx`. You will need to isolate the ids from `file.ids.ottids`. You can do this with `awk -F '\t' '{print "ott"$2}' file.ids.ottids > file.justids.ottids`. Then you can run `pxtrt` like `pxtrt -t opentree9.1_tree/labelled_supertree/labelled_supertree.tre -f file.justids.ottids > traced.tre`. 
