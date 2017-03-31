@@ -45,7 +45,7 @@ if __name__ == "__main__":
         else:
             id = get_from_gbif_id(nm)
         if id != None:
-            print nm+"\t"+id
+            print nm+"\t"+str(id)
         else:
             of.write(nm+"\n")
     fn.close()
