@@ -35,4 +35,4 @@ if __name__ == "__main__":
                     cur.data["paint"] = True
             lvsd[i].label = namesd[i]
         
-    print tfl.get_newick_repr_paint()+";"
+    print tfl.get_newick_repr_paint(showbl=True)+";"

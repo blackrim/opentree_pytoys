@@ -54,7 +54,7 @@ class Node:
             p.remove_child(self)
         return p
     
-    def get_newick_repr_paint(self):
+    def get_newick_repr_paint(self,showbl=False):
         ret = ""
         painted_children = []
         for i in self.children:
@@ -63,13 +63,15 @@ class Node:
         for i in range(len(painted_children)):
             if i == 0:
                 ret += "("
-            ret += painted_children[i].get_newick_repr_paint()
+            ret += painted_children[i].get_newick_repr_paint(showbl)
             if i == len(painted_children)-1:
                 ret += ")"
             else:
                 ret += ","
         if self.label != None and "paint" in self.data:
             ret += self.label
+        if showbl == True:
+            ret += ":" + str(self.length)
         return ret
 
     def get_newick_repr(self,showbl=False):
