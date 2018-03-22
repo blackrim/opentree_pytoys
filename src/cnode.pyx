@@ -1,5 +1,12 @@
 
-class Node:
+cdef class Node:
+    cdef public dict data
+    cdef public bint istip
+    cdef public double length,time_length,height,droot,lroot
+    cdef public str label,note
+    cdef public object parent
+    cdef public list children
+
     def __init__(self):
         self.label = ""
         self.length = 0.0
@@ -9,6 +16,8 @@ class Node:
         self.data = {}
         self.istip = False
         self.height = 0
+        self.droot = 0
+        self.lroot = 0.0
         self.note = ""
     
     def add_child(self,child):
@@ -32,6 +41,12 @@ class Node:
             for child in self.children:
                 child.leaves(v)
         return v
+    
+    def get_leaf_by_name(self,nm):
+        for i in self.leaves():
+            if i.label == nm:
+                return i
+        return None
 
     def leaves_fancy(self):
         return [n for n in self.iternodes() if n.istip ]
@@ -54,7 +69,7 @@ class Node:
             p.remove_child(self)
         return p
     
-    def get_newick_repr_paint(self,showbl=False):
+    def get_newick_repr_paint(self):
         ret = ""
         painted_children = []
         for i in self.children:
@@ -63,15 +78,13 @@ class Node:
         for i in range(len(painted_children)):
             if i == 0:
                 ret += "("
-            ret += painted_children[i].get_newick_repr_paint(showbl)
+            ret += painted_children[i].get_newick_repr_paint()
             if i == len(painted_children)-1:
                 ret += ")"
             else:
                 ret += ","
         if self.label != None and "paint" in self.data:
             ret += self.label
-        if showbl == True:
-            ret += ":" + str(self.length)
         return ret
 
     def get_newick_repr(self,showbl=False):
@@ -90,6 +103,24 @@ class Node:
             ret += ":" + str(self.length)
         return ret
 
+    def get_newick_repr_note(self,showbl=False):
+        ret = ""
+        for i in range(len(self.children)):
+            if i == 0:
+                ret += "("
+            ret += self.children[i].get_newick_repr_note(showbl)
+            if i == len(self.children)-1:
+                ret += ")"
+            else:
+                ret += ","
+        if self.label != None:
+            ret += self.label
+        if len(self.note) > 0:
+            ret += "["+self.note+"]"
+        if showbl == True:
+            ret += ":" + str(self.length)
+        return ret
+
     def set_height(self):
         if len(self.children) == 0:
             self.height = 0
@@ -97,9 +128,29 @@ class Node:
             tnode = self
             h = 0
             while len(tnode.children) > 0:
-                if tnode.children[1].length < tnode.children[0].length:
-                    tnode = tnode.children[1]
-                else:
+                if len(tnode.children) == 1:
                     tnode = tnode.children[0]
+                else:
+                    if tnode.children[1].length < tnode.children[0].length:
+                        tnode = tnode.children[1]
+                    else:
+                        tnode = tnode.children[0]
                 h += tnode.length
             self.height = h
+
+    def set_dist_root(self):
+        self.droot = 0
+        if self.parent != None:
+            cn = self
+            while cn.parent != None:
+                self.droot += 1
+                cn = cn.parent
+    
+    def set_length_root(self):
+        self.lroot = 0.0
+        if self.parent != None:
+            cn = self
+            while cn.parent != None:
+                self.lroot += cn.length
+                cn = cn.parent
+
