@@ -101,6 +101,13 @@ def read_tree_file(inf):
         trees.append(read_tree_string(i.strip()))
     return trees
 
+def read_tree_file_iter(inf):
+    info = open(inf,"r")
+    for i in info:
+        if len(i) > 2:
+            yield read_tree_string(i.strip())
+    info.close()
+
 
 if __name__ == "__main__":
     s = "(a:3,(b:1e-05,c:1.3)int_|_and_33.5:5)root;"

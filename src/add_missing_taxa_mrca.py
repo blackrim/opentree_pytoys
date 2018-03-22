@@ -1,7 +1,7 @@
 import tree_reader
 import tree_utils
 import sys
-import cnode as node
+import node as node
 
 """
 here we want to add taxa where you give the mrca

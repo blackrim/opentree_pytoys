@@ -1,7 +1,7 @@
 import tree_reader
 import tree_utils
 import sys
-import cnode as node
+import node as node
 
 
 """
