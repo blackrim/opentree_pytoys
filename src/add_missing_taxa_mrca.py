@@ -12,6 +12,9 @@ taxatoadd,mrca1taxa,mrca2taxa
 need to sort them by the mrcas and then do them all at once
 """
 
+# this will either be sister or will be at a polytomy
+add_as_sister = True
+
 if __name__ == "__main__":
     if len(sys.argv) != 3:
         print "python "+sys.argv[0]+" infile.tre names.txt"
@@ -48,8 +51,22 @@ if __name__ == "__main__":
                 replace[nms[0]] = x
                 tree_utils.set_heights(x)
         else:
-            x = tree_utils.get_mrca_wnms(nms,tree)
-        print x.get_newick_repr()
+            # will be a polytomy
+            if add_as_sister == False:
+                x = tree_utils.get_mrca_wnms(nms,tree)
+            # will be sister
+            else:
+                s = tree_utils.get_mrca_wnms(nms,tree)
+                p = s.parent
+                nn = node.Node()
+                nn.length = s.length/2.
+                s.length = nn.length
+                p.remove_child(s)
+                p.add_child(nn)
+                nn.add_child(s)
+                x = nn
+                tree_utils.set_heights(x)
+        print >> sys.stderr,x.get_newick_repr()
         n2 = node.Node()
         n2.label = nm
         n2.length = x.height
@@ -57,4 +74,4 @@ if __name__ == "__main__":
         print >> sys.stderr, "adding",nm,"to",x
     of.close()
 
-    print tree.get_newick_repr(True)
+    print tree.get_newick_repr(True)+";"

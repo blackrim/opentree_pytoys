@@ -1,5 +1,5 @@
 import string, sys
-from node import Node
+from cnode import Node
 
 
 """
