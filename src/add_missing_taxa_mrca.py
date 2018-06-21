@@ -13,7 +13,7 @@ need to sort them by the mrcas and then do them all at once
 """
 
 # this will either be sister or will be at a polytomy
-add_as_sister = True
+add_as_sister = False
 
 if __name__ == "__main__":
     if len(sys.argv) != 3:

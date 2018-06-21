@@ -2,6 +2,16 @@ import requests
 import json
 import sys
 
+def get_id_hyphen(name):
+    url = 'https://api.opentreeoflife.org/v3/tnrs/autocomplete_name'
+    nm = name.split("-")[0]
+    print nm
+    payload = json.loads('{"name":"'+nm+'"}')
+    headers = {'content-type': 'application/json', 'Accept-Charset': 'UTF-8'}
+    r = requests.post(url, data=json.dumps(payload), headers=headers)
+
+    id = r.json()[0]['ott_id']
+    return id
 
 def get_id(name):
     url = 'https://api.opentreeoflife.org/v3/tnrs/match_names'
@@ -27,7 +37,11 @@ if __name__ == "__main__":
         nm = i
         if "_" in nm:
             nm = " ".join(i.split(" ")[0].split("_"))
-        id = get_id(nm)
+        id = None
+        if "-" in nm:
+            id = get_id_hyphen(nm)
+        else:
+            id = get_id(nm)
         if id != None:
             print nm+"\t"+str(id)
         else:
