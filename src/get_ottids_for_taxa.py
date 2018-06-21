@@ -1,5 +1,6 @@
 import requests
 import json
+import time
 import sys
 
 def get_id_hyphen(name):
@@ -46,5 +47,6 @@ if __name__ == "__main__":
             print nm+"\t"+str(id)
         else:
             of.write(nm+"\n")
+        time.sleep(0.75)
     fn.close()
     of.close()
