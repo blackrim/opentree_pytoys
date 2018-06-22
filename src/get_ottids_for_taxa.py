@@ -6,11 +6,11 @@ import sys
 def get_id_hyphen(name):
     url = 'https://api.opentreeoflife.org/v3/tnrs/autocomplete_name'
     nm = name.split("-")[0]
-    print nm
+    #print nm
     payload = json.loads('{"name":"'+nm+'"}')
     headers = {'content-type': 'application/json', 'Accept-Charset': 'UTF-8'}
     r = requests.post(url, data=json.dumps(payload), headers=headers)
-
+    #print r
     id = r.json()[0]['ott_id']
     return id
 
@@ -19,7 +19,7 @@ def get_id(name):
     payload = json.loads('{"names":["'+name+'"]}')
     headers = {'content-type': 'application/json', 'Accept-Charset': 'UTF-8'}
     r = requests.post(url, data=json.dumps(payload), headers=headers)
-
+    #print r
     id = None
     for i in r.json()['results']:
         id = i['matches'][0]['taxon']['ott_id']
@@ -47,6 +47,6 @@ if __name__ == "__main__":
             print nm+"\t"+str(id)
         else:
             of.write(nm+"\n")
-        time.sleep(0.75)
+        time.sleep(0.2)
     fn.close()
     of.close()
