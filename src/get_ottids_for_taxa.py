@@ -47,6 +47,6 @@ if __name__ == "__main__":
             print nm+"\t"+str(id)
         else:
             of.write(nm+"\n")
-        time.sleep(0.2)
+        time.sleep(0.01)
     fn.close()
     of.close()

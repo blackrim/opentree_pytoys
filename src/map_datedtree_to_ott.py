@@ -22,7 +22,7 @@ if __name__ == "__main__":
     
     for i in dated.leaves():
         try:
-            i.data["node"] = ottlvsd["ott"+i.label]
+            i.data["node"] = ottlvsd[i.label]#ottlvsd["ott"+i.label]
         except:
             print >>sys.stderr,"not matched",i.label
             continue
